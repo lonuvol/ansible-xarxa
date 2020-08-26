@@ -1,0 +1,19 @@
+---
+- hosts: all
+  connection: local
+  vars:
+    vlan_id: 4000
+    vlan_name: enp3s0.4000
+    vlan_desc: vlan-gestio
+
+  tasks:
+    - name: configure interface
+      net_interface:
+        name: {{ vlan_name }}
+        description: {{ vlan_desc }}
+    - name: Configure IP address 10.0.0.1 on enp3s0.4000
+      ipadm_addr: addr=10.0.0.1/16 addrobj=enp3s0.4000/v4 state=present
+
+# PER XARXA PUBLICA #
+#    - name: Crear Routing Table
+#      lineinfile: dest=/etc/iproute2/rt_tables line="1 vswitch"
