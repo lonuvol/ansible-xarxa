@@ -3,7 +3,7 @@
   gather_facts: yes
   tasks:
     - debug: var=hostvars[inventory_hostname]['ansible_env'].SSH_CONNECTION.split(' ')[2]
-    - debug: var=inventory_hostname
+    - debug: var=inventory_description
     - debug: var=ansible_default_ipv4.interface
     - debug: var=xprivada_host
     - debug: var=ansible_facts
