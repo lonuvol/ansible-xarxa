@@ -1,0 +1,23 @@
+# {{ ansible_managed }}
+
+# Loopback Network Interface
+auto lo
+iface lo inet loopback
+
+# br0 OVS Bridge
+allow-hotplug br0
+iface br0 inet manual
+
+# Bridge Port to br0 OVS Bridge
+allow-hotplug enp0s31f6
+iface enp0s31f6 inet manual
+
+# host routable interface mgmt0
+allow-hotplug mgmt0
+iface mgmt0 inet static
+  address 94.130.143.60
+  netmask 255.255.255.255
+  network 94.130.143.60
+  gateway 94.130.143.1
+  hwaddress ether 90:1b:0e:da:c3:e2
+  mtu 1500
