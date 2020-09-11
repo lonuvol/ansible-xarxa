@@ -1,1 +1,14 @@
-
+---
+- hosts: all
+  gather_facts: yes
+  tasks:
+    - name: Configurar
+        interfaces_file:
+          dest: /tmp/eth1.cfg
+          iface: eth1
+          option: mtu
+          value: 8000
+          backup: yes
+          state: present
+        register: eth1_cfg
+      - debug: msg="{{ eth1_cfg }}"
