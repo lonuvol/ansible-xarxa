@@ -1,0 +1,6 @@
+---
+bridges:
+  - name: br0
+vlans:
+  - name: vlan-gestio
+    vlanid: 4000
