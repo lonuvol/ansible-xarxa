@@ -9,15 +9,15 @@ allow-hotplug br0
 iface br0 inet manual
 
 # Bridge Port to br0 OVS Bridge
-allow-hotplug enp0s31f6
-iface enp0s31f6 inet manual
+allow-hotplug {{ default_ipv4.interface }}
+iface {{ default_ipv4.interface }} inet manual
 
 # host routable interface mgmt0
 allow-hotplug mgmt0
 iface mgmt0 inet static
-  address 94.130.143.60
-  netmask 255.255.255.255
-  network 94.130.143.60
-  gateway 94.130.143.1
-  hwaddress ether 90:1b:0e:da:c3:e2
+  address {{ default_ipv4.address }}
+  netmask {{ default_ipv4.netmask }}
+  network {{ default_ipv4.network }}
+  gateway {{ default_ipv4.gateway }}
+  hwaddress ether {{ default_ipv4.macaddress }}
   mtu 1500
