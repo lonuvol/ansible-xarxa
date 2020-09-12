@@ -1,1 +1,26 @@
 ---
+- hosts: all
+  gather_facts: yes
+  tasks:
+  
+  ## Preparar OVS Bridge
+  
+    - name: Crear OVS Bridge
+      openvswitch_bridge:
+        bridge: br0
+        state: present
+    - name: Crear interface virtual per al host
+      openvswitch_port:
+        bridge: br0
+        port: mgmt0
+        state: present
+        set: interface mgmt0 type=internal
+
+  ## Netejar netplan
+
+    - name: Eliminar interface principal
+      roles:
+         - role: ansible-netplan
+           become: yes
+           netplan_enabled: true
+           
