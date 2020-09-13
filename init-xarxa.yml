@@ -29,17 +29,17 @@
           - vlan-gestio
     ovs_interfaces:    
       - name: mgmt0
-        address: '{{ default_ipv4.address }}'
+        address: '{{ ansible_default_ipv4.address }}'
         bridge: vmbr0
         comment: Interface virtual principal
         configure: true
         enable: true
-        gateway: '{{ default_ipv4.gateway }}'
+        gateway: '{{ ansible_default_ipv4.gateway }}'
         method: static
-        netmask: '{{ default_ipv4.netmask }}'
+        netmask: '{{ ansible_default_ipv4.netmask }}'
         parameters :
           - param: hwaddress ether
-            val: '{{ default_ipv4.macaddress }}'
+            val: '{{ ansible_default_ipv4.macaddress }}'
           - param: mtu
             val: 1500
       - name: vlan-gestio
