@@ -26,11 +26,11 @@
         ports:
           - '{{ ansible_default_ipv4.interface }}'
           - mgmt0
-          - vlan-gestio
+          - xgestio
     ovs_interfaces:    
       - name: mgmt0
         address: '{{ ansible_default_ipv4.address }}'
-        bridge: vmbr0
+        bridge: br0
         comment: Interface virtual principal
         configure: true
         enable: true
@@ -42,7 +42,7 @@
             val: '{{ ansible_default_ipv4.macaddress }}'
           - param: mtu
             val: 1500
-      - name: vlan-gestio
+      - name: xgestio
         address: '{{ vlan-gestio_host }}'
         bridge: br0
         comment: Interface vlan-gestio
