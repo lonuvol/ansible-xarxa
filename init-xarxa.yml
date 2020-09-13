@@ -55,7 +55,7 @@
             val: 4000
   roles:
     - role: mrlesmithjr.ansible-openvswitch
-    - role: mrlesmithjr.ansible-config-interfaces
+    - role: mrlesmithjr.config-interfaces
     - role: mrlesmithjr.netplan
       netplan_enabled: true
       netplan_apply: false
