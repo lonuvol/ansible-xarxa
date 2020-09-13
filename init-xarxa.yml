@@ -50,9 +50,7 @@
         enable: true
         method: static
         netmask: 255.255.0.0
-        options:
-          - opt: tag
-            val: 4000
+        vlan: 4000
   roles:
     - role: mrlesmithjr.ansible-openvswitch
     - role: mrlesmithjr.config-interfaces
