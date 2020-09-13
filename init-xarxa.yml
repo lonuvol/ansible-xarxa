@@ -1,26 +1,59 @@
 ---
 - hosts: all
   gather_facts: yes
+  vars:
+    config_network_interfaces: true
+    config_ovs_bridges: true
+    config_ovs_interfaces: true
+    enable_configured_interfaces_after_defining: true
+    dns_nameservers:
+      - 213.133.100.100
+      - 213.133.98.98
+      - 213.133.99.99
+      - 2a01:4f8:0:1::add:9898
+      - 2a01:4f8:0:1::add:1010
+      - 2a01:4f8:0:1::add:9999
+    network_interfaces:
+      - name: {{ default_ipv4.interface }}
+        configure : true
+        method: manual
+    ovs_bridges:
+      - name: br0
+        comment: Bridge OVS
+        configure : true
+        method: manual
+        ports:
+          - {{ default_ipv4.interface }}
+          - mgmt0
+          - vlan-gestio
+    ovs_interfaces:    
+      - name: mgmt0
+        address: {{ default_ipv4.address }}
+        bridge: vmbr0
+        comment: Interface virtual principal
+        configure: true
+        enable: true
+        gateway: {{ default_ipv4.gateway }}
+        method: static
+        netmask: {{ default_ipv4.netmask }}
+        parameters :
+          - param: hwaddress ether
+            val: {{ default_ipv4.macaddress }}
+          - param: mtu
+            val: 1500
+      - name: vlan-gestio
+        address: {{ vlan-gestio_host }}
+        bridge: br0
+        comment: Interface vlan-gestio
+        configure: true
+        enable: true
+        method: static
+        netmask: 255.255.0.0
+        options:
+          - opt: tag
+            val: 4000
+          
+  roles:
+    - role: ansible-openvswitch
+    - role: ansible-config-interfaces
   tasks:
-  
-  ## Preparar OVS Bridge
-  
-    - name: Crear OVS Bridge
-      openvswitch_bridge:
-        bridge: br0
-        state: present
-    - name: Crear interface virtual per al host
-      openvswitch_port:
-        bridge: br0
-        port: mgmt0
-        state: present
-        set: interface mgmt0 type=internal
-
-  ## Netejar netplan
-
-    - name: Eliminar interface principal
-      roles:
-         - role: ansible-netplan
-           become: yes
-           netplan_enabled: true
-           
