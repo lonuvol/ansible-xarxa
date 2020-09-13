@@ -1,0 +1,4 @@
+roles : 
+  - name: ansible-openvswitch
+  - name: ansible-config-interfaces
+  - name: ansible-netplan
