@@ -54,9 +54,9 @@
           - opt: tag
             val: 4000
   roles:
-    - role: mrlesmithjr.ansible-openvswitch
-    - role: mrlesmithjr.ansible-config-interfaces
-    - role: mrlesmithjr.ansible-netplan
+    - role: ansible-openvswitch
+    - role: ansible-config-interfaces
+    - role: ansible-netplan
       netplan_enabled: true
       netplan_apply: false
       netplan_config_file: /etc/netplan/01-netcfg.yaml
