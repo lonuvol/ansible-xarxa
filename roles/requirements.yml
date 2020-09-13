@@ -1,4 +1,4 @@
 roles : 
-  - name: ansible-openvswitch
-  - name: ansible-config-interfaces
-  - name: ansible-netplan
+  - name: mrlesmithjr.ansible-openvswitch
+  - name: mrlesmithjr.config-interfaces
+  - name: mrlesmithjr.netplan
