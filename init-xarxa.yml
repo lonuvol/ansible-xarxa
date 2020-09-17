@@ -9,19 +9,19 @@
       config_network_interfaces: true
       config_ovs_bridges: true
       config_ovs_interfaces: true
-#      enable_configured_interfaces_after_defining: false
+      enable_configured_interfaces_after_defining: false
       dns_nameservers:
         - 213.133.100.100
         - 213.133.98.98
         - 213.133.99.99
       network_interfaces:
         - name: '{{ ansible_default_ipv4.interface }}'
-          configure : true
+#          configure : true
           method: manual 
       ovs_bridges:
         - name: br0
           comment: Bridge OVS
-          configure : true
+ #         configure : true
           method: manual
           ports:
             - '{{ ansible_default_ipv4.interface }}'
@@ -32,7 +32,7 @@
           address: '{{ ansible_default_ipv4.address }}'
           bridge: br0
           comment: Interface virtual principal
-          configure: true
+ #         configure: true
           gateway: '{{ ansible_default_ipv4.gateway }}'
           method: static
           netmask: '{{ ansible_default_ipv4.netmask }}'
