@@ -40,7 +40,7 @@
             val: '{{ ansible_default_ipv4.macaddress }}'
           - param: mtu
             val: 1500
-     - name: xgestio
+      - name: xgestio
         address: '{{ vgestio_host }}'
         bridge: br0
         comment: Interface vlan-gestio
