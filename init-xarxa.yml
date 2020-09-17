@@ -3,57 +3,57 @@
   gather_facts: yes
 #  become: yes
   vars:
-
+    config_network_interfaces: true
+    config_ovs_bridges: true
+    config_ovs_interfaces: true
+    dns_nameservers:
+      - 213.133.100.100
+      - 213.133.98.98
+      - 213.133.99.99
+    network_interfaces:
+      - name: '{{ ansible_default_ipv4.interface }}'
+        configure : true
+        enable: false
+        method: manual 
+    ovs_bridges:
+      - name: br0
+        comment: Bridge OVS
+        configure : true
+        enable: false
+        method: manual
+        ports:
+          - '{{ ansible_default_ipv4.interface }}'
+          - mgmt0
+#         - xgestio
+    ovs_interfaces:    
+      - name: mgmt0
+        address: '{{ ansible_default_ipv4.address }}'
+        bridge: br0
+        comment: Interface virtual principal
+        configure: true
+        enable: false
+        gateway: '{{ ansible_default_ipv4.gateway }}'
+        method: static
+        netmask: '{{ ansible_default_ipv4.netmask }}'
+        parameters :
+          - param: hwaddress ether
+            val: '{{ ansible_default_ipv4.macaddress }}'
+          - param: mtu
+            val: 1500
+#     - name: xgestio
+#        address: '{{ vlan-gestio_host }}'
+#        bridge: br0
+#        comment: Interface vlan-gestio
+#        configure: true
+#        enable: false
+#        method: static
+#        netmask: 255.255.0.0
+#        options:
+#          - opt: tag
+#            val: 4000
   roles:
     - role: mrlesmithjr.config-interfaces
-      config_network_interfaces: true
-      config_ovs_bridges: true
-      config_ovs_interfaces: true
-      dns_nameservers:
-        - 213.133.100.100
-        - 213.133.98.98
-        - 213.133.99.99
-      network_interfaces:
-        - name: '{{ ansible_default_ipv4.interface }}'
-          configure : true
-          enable: false
-          method: manual 
-      ovs_bridges:
-        - name: br0
-          comment: Bridge OVS
-          configure : true
-          enable: false
-          method: manual
-          ports:
-            - '{{ ansible_default_ipv4.interface }}'
-            - mgmt0
-#            - xgestio
-      ovs_interfaces:    
-        - name: mgmt0
-          address: '{{ ansible_default_ipv4.address }}'
-          bridge: br0
-          comment: Interface virtual principal
-          configure: true
-          enable: false
-          gateway: '{{ ansible_default_ipv4.gateway }}'
-          method: static
-          netmask: '{{ ansible_default_ipv4.netmask }}'
-          parameters :
-            - param: hwaddress ether
-              val: '{{ ansible_default_ipv4.macaddress }}'
-            - param: mtu
-              val: 1500
-#        - name: xgestio
-#          address: '{{ vlan-gestio_host }}'
-#          bridge: br0
-#          comment: Interface vlan-gestio
-#          configure: true
-#          enable: false
-#          method: static
-#          netmask: 255.255.0.0
-#          options:
-#            - opt: tag
-#              val: 4000
+    - role: mrlesmithjr.ansible-openvswitch
     - role: mrlesmithjr.netplan
       netplan_enabled: true
       netplan_apply: false
