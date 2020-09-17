@@ -3,18 +3,12 @@
   gather_facts: yes
 #  become: yes
   vars:
-    config_network_interfaces: true
     config_ovs_bridges: true
     config_ovs_interfaces: true
     dns_nameservers:
       - 213.133.100.100
       - 213.133.98.98
       - 213.133.99.99
-    network_interfaces:
-      - name: '{{ ansible_default_ipv4.interface }}'
-        configure : true
-        enable: false
-        method: manual 
     ovs_bridges:
       - name: br0
         comment: Bridge OVS
@@ -25,7 +19,13 @@
           - '{{ ansible_default_ipv4.interface }}'
           - mgmt0
 #         - xgestio
-    ovs_interfaces:    
+    ovs_interfaces:
+      - name: '{{ ansible_default_ipv4.interface }}'
+        comment: Interface fisica
+        bridge: br0
+        configure : true
+        enable: false
+        method: manual 
       - name: mgmt0
         address: '{{ ansible_default_ipv4.address }}'
         bridge: br0
