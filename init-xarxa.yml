@@ -1,7 +1,7 @@
 ---
 - hosts: all
   gather_facts: yes
-  become: yes
+#  become: yes
   vars:
 
   roles:
@@ -26,7 +26,7 @@
           ports:
             - '{{ ansible_default_ipv4.interface }}'
             - mgmt0
-            - xgestio
+#            - xgestio
       ovs_interfaces:    
         - name: mgmt0
           address: '{{ ansible_default_ipv4.address }}'
@@ -42,17 +42,17 @@
               val: '{{ ansible_default_ipv4.macaddress }}'
             - param: mtu
               val: 1500
-        - name: xgestio
-          address: '{{ vlan-gestio_host }}'
-          bridge: br0
-          comment: Interface vlan-gestio
-          configure: true
-          enable: true
-          method: static
-          netmask: 255.255.0.0
-          options:
-            - opt: tag
-              val: 4000
+#        - name: xgestio
+#          address: '{{ vlan-gestio_host }}'
+#          bridge: br0
+#          comment: Interface vlan-gestio
+#          configure: true
+#          enable: true
+#          method: static
+#          netmask: 255.255.0.0
+#          options:
+#            - opt: tag
+#              val: 4000
     - role: mrlesmithjr.netplan
       netplan_enabled: true
       netplan_apply: false
