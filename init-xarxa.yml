@@ -9,7 +9,7 @@
       config_network_interfaces: true
       config_ovs_bridges: true
       config_ovs_interfaces: true
-      enable_configured_interfaces_after_defining: false
+#      enable_configured_interfaces_after_defining: false
       dns_nameservers:
         - 213.133.100.100
         - 213.133.98.98
