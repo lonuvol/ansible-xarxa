@@ -33,7 +33,6 @@
           bridge: br0
           comment: Interface virtual principal
           configure: true
-          enable: true
           gateway: '{{ ansible_default_ipv4.gateway }}'
           method: static
           netmask: '{{ ansible_default_ipv4.netmask }}'
