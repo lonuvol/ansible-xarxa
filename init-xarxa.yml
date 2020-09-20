@@ -6,6 +6,7 @@
     config_network_interfaces: true
     config_ovs_bridges: true
     config_ovs_interfaces: true
+    pri_domain_name: lonuvol.local
     dns_nameservers:
       - 213.133.100.100
       - 213.133.98.98
@@ -54,26 +55,26 @@
             val: 4000
   roles:
     - role: mrlesmithjr.config-interfaces
-#    - role: mrlesmithjr.ansible-openvswitch
-#    - role: mrlesmithjr.netplan
-#      netplan_enabled: true
-#      netplan_apply: false
-#      netplan_config_file: /etc/netplan/01-netcfg.yaml
-#      netplan_renderer: networkd
-#      netplan_configuration:
-#        network:
-#          version: 2
-#          ethernets:
+    - role: mrlesmithjr.ansible-openvswitch
+    - role: mrlesmithjr.netplan
+      netplan_enabled: true
+      netplan_apply: false
+      netplan_config_file: /etc/netplan/01-netcfg.yaml
+      netplan_renderer: networkd
+      netplan_configuration:
+        network:
+          version: 2
+          ethernets:
   tasks:
-#    - name: Reiniciar per aplicar els canvis de xarxa
-#      shell: sleep 10 && /sbin/shutdown -r now 'Reiniciar per aplicar els canvis de xarxa' 
-#      async: 300
-#      poll: 0
-#      ignore_errors: true
-#    - name: Esperar a que el servidor torni a estar disponible
-#      wait_for_connection:
-#        delay: 60
-#        timeout: 300
+    - name: Reiniciar per aplicar els canvis de xarxa
+      shell: sleep 10 && /sbin/shutdown -r now 'Reiniciar per aplicar els canvis de xarxa' 
+      async: 300
+      poll: 0
+      ignore_errors: true
+    - name: Esperar a que el servidor torni a estar disponible
+      wait_for_connection:
+        delay: 60
+        timeout: 300
     - name: Verificar Switch
       command: ovs-vsctl show
       register: ovs_result
