@@ -28,7 +28,7 @@
           ports:
             - '{{ ansible_default_ipv4.interface }}'
             - mgmt0
-            - xgestio
+            - vlan4000
       ovs_interfaces:
         - name: mgmt0
           address: '{{ ansible_default_ipv4.address }}'
@@ -44,14 +44,14 @@
               val: '{{ ansible_default_ipv4.macaddress }}'
             - param: mtu
               val: 1500
-        - name: xgestio
+        - name: vlan4000
           address: '{{ vgestio_host }}'
           bridge: '{{ bridge_pri }}'
           comment: Interface vlan-gestio
           configure: true
           enable: false
           method: static
-          netmask: 255.255.0.0
+          netmask: 255.255.255.0
           options:
             - opt: tag
               val: 4000
