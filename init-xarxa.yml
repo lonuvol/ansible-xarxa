@@ -64,7 +64,7 @@
           options:
             - opt: tag
               val: 4000
-    - role: mrlesmithjr.ansible-openvswitch
+#    - role: mrlesmithjr.ansible-openvswitch
     - role: mrlesmithjr.netplan
       netplan_enabled: true
       netplan_apply: false
