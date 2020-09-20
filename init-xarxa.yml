@@ -3,6 +3,7 @@
   gather_facts: yes
   become: yes
   vars:
+    config_network_interfaces: true
     config_ovs_bridges: true
     config_ovs_interfaces: true
     dns_nameservers:
