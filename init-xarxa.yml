@@ -68,6 +68,7 @@
   tasks:
     - name: Aplicar canvis
       shell: ifdown --all && ifup --all && ovs-vsctl add-port '{{ bridge_pri }}' '{{ ansible_default_ipv4.interface }}'
+      ignore_errors: yes
     - name: Verificar Switch
       command: ovs-vsctl show
       register: ovs_result
