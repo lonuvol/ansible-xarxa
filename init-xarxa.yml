@@ -11,6 +11,10 @@
       - 213.133.100.100
       - 213.133.98.98
       - 213.133.99.99
+    network_interfaces:
+      - name: '{{ ansible_default_ipv4.interface }}'
+        configure : true
+        method: manual
     ovs_bridges:
       - name: br0
         comment: Bridge OVS
@@ -22,12 +26,6 @@
           - mgmt0
           - xgestio
     ovs_interfaces:
-      - name: '{{ ansible_default_ipv4.interface }}'
-        comment: Interface fisica
-        bridge: br0
-        configure : true
-        enable: false
-        method: manual 
       - name: mgmt0
         address: '{{ ansible_default_ipv4.address }}'
         bridge: br0
