@@ -19,7 +19,7 @@
         ports:
           - '{{ ansible_default_ipv4.interface }}'
           - mgmt0
-#          - xgestio
+          - xgestio
     ovs_interfaces:
       - name: '{{ ansible_default_ipv4.interface }}'
         comment: Interface fisica
@@ -41,17 +41,17 @@
             val: '{{ ansible_default_ipv4.macaddress }}'
           - param: mtu
             val: 1500
-#      - name: xgestio
-#        address: '{{ vgestio_host }}'
-#        bridge: br0
-#        comment: Interface vlan-gestio
-#        configure: true
-#        enable: false
-#        method: static
-#        netmask: 255.255.0.0
-#        options:
-#          - opt: tag
-#            val: 4000
+      - name: xgestio
+        address: '{{ vgestio_host }}'
+        bridge: br0
+        comment: Interface vlan-gestio
+        configure: true
+        enable: false
+        method: static
+        netmask: 255.255.0.0
+        options:
+          - opt: tag
+            val: 4000
   roles:
     - role: mrlesmithjr.config-interfaces
 #    - role: mrlesmithjr.ansible-openvswitch
