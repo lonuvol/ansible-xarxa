@@ -18,7 +18,7 @@
         ports:
           - '{{ ansible_default_ipv4.interface }}'
           - mgmt0
-#         - xgestio
+          - xgestio
     ovs_interfaces:
       - name: '{{ ansible_default_ipv4.interface }}'
         comment: Interface fisica
