@@ -65,7 +65,7 @@
           ethernets:
   tasks:
     - name: Reiniciar per aplicar els canvis de xarxa
-      shell: sleep 10 && /sbin/shutdown -r now 'Reiniciar per aplicar els canvis de xarxa' 
+      shell: sleep 10 && ovs-vsctl add-port br0 '{{ ansible_default_ipv4.interface }}' && /sbin/shutdown -r now 'Reiniciar per aplicar els canvis de xarxa' 
       async: 300
       poll: 0
       ignore_errors: true
