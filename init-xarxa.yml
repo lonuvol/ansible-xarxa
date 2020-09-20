@@ -15,10 +15,7 @@
         - 213.133.98.98
         - 213.133.99.99
       network_interfaces:
-        - name: '{{ ansible_default_ipv4.interface }}'
-          configure : true
-          enable: false
-          method: manual
+
       ovs_bridges:
         - name: '{{ bridge_pri }}'
           comment: Bridge OVS
@@ -30,6 +27,15 @@
             - mgmt0
             - vlan4000
       ovs_interfaces:
+        - name: '{{ ansible_default_ipv4.interface }}'
+          configure : true
+          enable: false
+          method: manual
+          options:
+            - opt: vlan_mode
+              val: native-untagged
+            - opt: tag
+              val: 100
         - name: mgmt0
           address: '{{ ansible_default_ipv4.address }}'
           bridge: '{{ bridge_pri }}'
@@ -44,6 +50,9 @@
               val: '{{ ansible_default_ipv4.macaddress }}'
             - param: mtu
               val: 1500
+          options:
+            - opt: tag
+              val: 100
         - name: vlan4000
           address: '{{ vgestio_host }}'
           bridge: '{{ bridge_pri }}'
@@ -67,7 +76,8 @@
           ethernets:
   tasks:
     - name: Aplicar canvis
-      shell: ifdown --all && ifup --all && ovs-vsctl add-port '{{ bridge_pri }}' '{{ ansible_default_ipv4.interface }}'
+      shell: ifdown --all && ifup --all
+#      shell: ifdown --all && ifup --all && ovs-vsctl add-port '{{ bridge_pri }}' '{{ ansible_default_ipv4.interface }}'
       ignore_errors: yes
     - name: Verificar Switch
       command: ovs-vsctl show
