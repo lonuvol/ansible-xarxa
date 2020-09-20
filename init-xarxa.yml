@@ -26,6 +26,7 @@
             - vlan4000
       ovs_interfaces:
         - name: '{{ ansible_default_ipv4.interface }}'
+          bridge: '{{ bridge_pri }}'
           configure : true
           enable: false
           method: manual
