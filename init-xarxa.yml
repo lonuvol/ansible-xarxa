@@ -23,7 +23,7 @@
           ports:
             - '{{ ansible_default_ipv4.interface }}'
             - mgmt0
-            - vlan4000
+            - vlan4001
       ovs_interfaces:
         - name: '{{ ansible_default_ipv4.interface }}'
           bridge: '{{ bridge_pri }}'
@@ -52,7 +52,7 @@
           options:
             - opt: tag
               val: 100
-        - name: vlan4000
+        - name: vlan4001
           address: '{{ vgestio_host }}'
           bridge: '{{ bridge_pri }}'
           comment: Interface vlan-gestio
@@ -62,7 +62,7 @@
           netmask: 255.255.255.0
           options:
             - opt: tag
-              val: 4000
+              val: 4001
 #    - role: mrlesmithjr.ansible-openvswitch
   tasks:
     - name: Aplicar canvis
