@@ -64,20 +64,15 @@
             - opt: tag
               val: 4000
 #    - role: mrlesmithjr.ansible-openvswitch
-    - role: mrlesmithjr.netplan
-      netplan_enabled: true
-      netplan_apply: false
-      netplan_config_file: /etc/netplan/01-netcfg.yaml
-      netplan_renderer: networkd
-      netplan_configuration:
-        network:
-          version: 2
-          ethernets:
   tasks:
     - name: Aplicar canvis
       shell: ifdown --all && ifup --all
-#      shell: ifdown --all && ifup --all && ovs-vsctl add-port '{{ bridge_pri }}' '{{ ansible_default_ipv4.interface }}'
       ignore_errors: yes
+    - name: Deshabilitar netplan
+      systemd:
+        name: systemd-resolved
+        state: stopped
+        enabled: no
     - name: Verificar Switch
       command: ovs-vsctl show
       register: ovs_result
