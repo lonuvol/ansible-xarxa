@@ -60,10 +60,12 @@
           enable: false
           method: static
           netmask: 255.255.255.0
+          parameters :
+            - param: mtu
+              val: 1400
           options:
             - opt: tag
               val: 4001
-#    - role: mrlesmithjr.ansible-openvswitch
   tasks:
     - name: Aplicar canvis
       shell: ifdown --all && ifup --all
