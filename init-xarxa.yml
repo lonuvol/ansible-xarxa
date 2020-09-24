@@ -39,9 +39,7 @@
             method: manual
             ports:
               - '{{ ansible_default_ipv4.interface }}'
-            parameters:
-              - param: post-up
-                val: ovs-vsctl add-port '{{ bridge_pri }}' '{{ ansible_default_ipv4.interface }}'        
+
         ovs_interfaces:
           - name: mgmt0
             address: '{{ ansible_default_ipv4.address }}'
@@ -55,6 +53,8 @@
             parameters :
               - param: hwaddress ether
                 val: '{{ ansible_default_ipv4.macaddress }}'
+              - param: post-up
+                val: ovs-vsctl add-port '{{ bridge_pri }}' '{{ ansible_default_ipv4.interface }}'
           - name: vlan4001
             address: '{{ vgestio_host }}'
             bridge: '{{ bridge_pri }}'
