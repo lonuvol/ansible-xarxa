@@ -1,0 +1,12 @@
+---
+bridge_pri: 
+  - br0
+dns_nameservers:
+  - 213.133.100.100
+  - 213.133.98.98
+  - 213.133.99.99
+pri_domain_name: 
+  - lonuvol.local
+lock_packages: 
+  - name: openvswitch-switch
+    ver: 2.13.0-0ubuntu1
