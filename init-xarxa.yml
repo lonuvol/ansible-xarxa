@@ -6,6 +6,9 @@
     - vars/default.yml
   
   tasks:
+    - name: Fes un update apt
+      apt: update_cache=yes force_apt_get=yes autoremove=yes cache_valid_time=3600
+      
     - name: Instalar paquets basics
       apt: name={{ sys_packages }} state=latest
     
