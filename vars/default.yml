@@ -1,6 +1,5 @@
 ---
-bridge_pri: 
-  - br0
+bridge_pri: br0
 dns_nameservers:
   - 213.133.100.100
   - 213.133.98.98
