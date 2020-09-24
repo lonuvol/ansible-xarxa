@@ -87,9 +87,9 @@
         name: "{{ item }}"
         state: stopped
         enabled: no
-        with_items:
-          - 'systemd-networkd'
-          - 'systemd-networkd.socket'
+      with_items:
+        - systemd-networkd
+        - systemd-networkd.socket
           
     - name: Desinstal·lar Netplan
       apt:
