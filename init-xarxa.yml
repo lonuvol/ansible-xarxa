@@ -78,8 +78,9 @@
       include_role:
         name: damex.systemd_resolved
       vars:
-        systemd_resolved_dns: {{ dns_nameservers }}
-        systemd_resolved_domains: {{ pri_domain_name }}
+        systemd_resolved_dns: 
+          - "{{ dns_nameservers }}"
+        systemd_resolved_domains: '{{ pri_domain_name }}'
         
     - name: Deshabilitar netplan
       systemd:
