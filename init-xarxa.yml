@@ -97,7 +97,7 @@
         state: absent
 
     - name: Aplicar canvis
-      shell: ifdown --all && ifup --all
+      shell: ip addr flush dev '{{ ansible_default_ipv4.interface }}' && ifdown --all && ifup --all
       ignore_errors: yes
 #      when: 
 #        - "'nous' in group_names"
