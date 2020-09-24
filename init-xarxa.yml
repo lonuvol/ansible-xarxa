@@ -76,11 +76,10 @@
 
     - name: Configurar DNS
       include_role:
-        name: damex.systemd_resolved
+        name: oefenweb.dns
       vars:
-        systemd_resolved_dns: 
-          - "{{ dns_nameservers }}"
-        systemd_resolved_domains: '{{ pri_domain_name }}'
+        dns_searches: 
+          - "{{ pri_domain_name }}"
         
     - name: Deshabilitar netplan
       systemd:
