@@ -1,4 +1,3 @@
 roles : 
-  - name: mrlesmithjr.ansible-openvswitch
   - name: mrlesmithjr.config-interfaces
-  - name: mrlesmithjr.netplan
+  - name: damex.systemd_resolved
