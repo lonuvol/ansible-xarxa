@@ -38,7 +38,7 @@
             enable: true
             method: manual
             ports:
-              - '{{ ansible_default_ipv4.interface }}'
+              - '{{ bridge_pri  }}'
 
         ovs_interfaces:
           - name: mgmt0
