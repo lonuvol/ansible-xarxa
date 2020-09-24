@@ -34,32 +34,32 @@
               - param: post-up
                 val: ovs-vsctl add-port '{{ bridge_pri }}' '{{ ansible_default_ipv4.interface }}'        
        ovs_interfaces:
-          - name: mgmt0
-            address: '{{ ansible_default_ipv4.address }}'
-            bridge: '{{ bridge_pri }}'
-            comment: Interface virtual principal
-            configure: true
-            enable: true
-            gateway: '{{ ansible_default_ipv4.gateway }}'
-            method: static
-            netmask: '{{ ansible_default_ipv4.netmask }}'
-            parameters :
+         - name: mgmt0
+           address: '{{ ansible_default_ipv4.address }}'
+           bridge: '{{ bridge_pri }}'
+           comment: Interface virtual principal
+           configure: true
+           enable: true
+           gateway: '{{ ansible_default_ipv4.gateway }}'
+           method: static
+           netmask: '{{ ansible_default_ipv4.netmask }}'
+           parameters :
               - param: hwaddress ether
                 val: '{{ ansible_default_ipv4.macaddress }}'
-          - name: vlan4001
-            address: '{{ vgestio_host }}'
-            bridge: '{{ bridge_pri }}'
-            comment: Interface vlan-gestio
-            configure: true
-            enable: true
-            method: static
-            netmask: 255.255.255.0
-            parameters :
-              - param: mtu
-                val: 1400
-            options:
-              - opt: tag
-                val: 4001
+         - name: vlan4001
+           address: '{{ vgestio_host }}'
+           bridge: '{{ bridge_pri }}'
+           comment: Interface vlan-gestio
+           configure: true
+           enable: true
+           method: static
+           netmask: 255.255.255.0
+           parameters :
+             - param: mtu
+               val: 1400
+           options:
+             - opt: tag
+               val: 4001
                 
     - name: Configurar Interfaces
       include_role:
