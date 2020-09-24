@@ -88,8 +88,8 @@
         state: stopped
         enabled: no
         with_items:
-          - systemd-networkd
-          - systemd-networkd.socket
+          - 'systemd-networkd'
+          - 'systemd-networkd.socket'
           
     - name: Desinstal·lar Netplan
       apt:
@@ -99,8 +99,8 @@
     - name: Aplicar canvis
       shell: ifdown --all && ifup --all
       ignore_errors: yes
-      when: 
-        - "'nous' in group_names"
+#      when: 
+#        - "'nous' in group_names"
 
     - name: Verificar Switch
       command: ovs-vsctl show
