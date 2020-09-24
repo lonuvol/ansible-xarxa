@@ -79,7 +79,12 @@
         name: oefenweb.dns
       vars:
         dns_domain: '{{ pri_domain_name }}'
-        
+ 
+    - name: Reiniciar DNS
+      systemd:
+        name: systemd-resolved
+        state: restarted
+                
     - name: Deshabilitar netplan
       systemd:
         name: "{{ item }}"
