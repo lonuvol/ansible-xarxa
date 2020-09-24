@@ -78,8 +78,7 @@
       include_role:
         name: oefenweb.dns
       vars:
-        dns_searches: 
-          - "{{ pri_domain_name }}"
+        dns_domain: '{{ pri_domain_name }}'
         
     - name: Deshabilitar netplan
       systemd:
