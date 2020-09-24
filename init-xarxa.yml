@@ -54,7 +54,7 @@
               - param: hwaddress ether
                 val: '{{ ansible_default_ipv4.macaddress }}'
               - param: post-up
-                val: ovs-vsctl add-port '{{ bridge_pri }}' '{{ ansible_default_ipv4.interface }}'
+                val: ovs-vsctl add-port {{ bridge_pri }} {{ ansible_default_ipv4.interface }}
           - name: vswitch1
             address: '{{ vgestio_host }}'
             bridge: '{{ bridge_pri }}'
