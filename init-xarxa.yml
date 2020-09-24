@@ -70,7 +70,13 @@
                 val: 4001
       when: 
         - "'nous' in group_names"
-        
+
+    - name: Aplicar canvis
+      shell: ifdown --all && ifup --all
+      ignore_errors: yes
+      when: 
+        - "'nous' in group_names"
+
     - name: Configurar DNS
       include_role:
         name: damex.systemd_resolved
