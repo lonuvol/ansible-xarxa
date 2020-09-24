@@ -2,15 +2,18 @@
 - hosts: all
   gather_facts: yes
   become: yes
-  vars:
-    bridge_pri: br0
-    dns_nameservers:
-      - 213.133.100.100
-      - 213.133.98.98
-      - 213.133.99.99
-    pri_domain_name: lonuvol.local
-
+  vars_files:
+    - vars/default.yml
+  
   tasks:
+    - name: Instalar paquets amb versio especifica
+      apt: name='{{ item.name }}={{ item.ver }}'
+      with_items: "{{ lock_packages }}"
+    
+    - name: Bloquejar paquets
+      dpkg_selections: name={{ item.name }} selection=hold
+      with_items: "{{ lock_packages }}"
+      
     - name: Configurar Interfaces
       include_role:
         name: mrlesmithjr.config-interfaces
