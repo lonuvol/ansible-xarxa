@@ -74,12 +74,6 @@
       when: 
         - "'nous' in group_names"
 
-    - name: Aplicar canvis
-      shell: ifdown --all && ifup --all
-      ignore_errors: yes
-      when: 
-        - "'nous' in group_names"
-
     - name: Configurar DNS
       include_role:
         name: damex.systemd_resolved
@@ -89,17 +83,24 @@
         
     - name: Deshabilitar netplan
       systemd:
-        name:
-          - systemd-networkd
-          - systemd-networkd.socket
+        name: "{{ item }}"
         state: stopped
         enabled: no
-        
+        with_items:
+          - systemd-networkd
+          - systemd-networkd.socket
+          
     - name: Desinstal·lar Netplan
       apt:
         name: netplan.io
         state: absent
-        
+
+    - name: Aplicar canvis
+      shell: ifdown --all && ifup --all
+      ignore_errors: yes
+      when: 
+        - "'nous' in group_names"
+
     - name: Verificar Switch
       command: ovs-vsctl show
       register: ovs_result
