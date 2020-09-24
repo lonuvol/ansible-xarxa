@@ -55,10 +55,10 @@
                 val: '{{ ansible_default_ipv4.macaddress }}'
               - param: post-up
                 val: ovs-vsctl add-port '{{ bridge_pri }}' '{{ ansible_default_ipv4.interface }}'
-          - name: vlan4001
+          - name: vswitch1
             address: '{{ vgestio_host }}'
             bridge: '{{ bridge_pri }}'
-            comment: Interface vlan-gestio
+            comment: Interface vswitch1
             configure: true
             enable: true
             method: static
