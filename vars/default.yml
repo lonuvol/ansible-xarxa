@@ -7,6 +7,8 @@ dns_nameservers:
   - 213.133.99.99
 pri_domain_name: 
   - lonuvol.local
+sys_packages:
+  - ifupdown
 lock_packages: 
   - name: openvswitch-switch
     ver: 2.13.0-0ubuntu1
