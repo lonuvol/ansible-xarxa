@@ -10,7 +10,7 @@
       - 213.133.99.99
     pri_domain_name: lonuvol.local
 
-tasks:
+  tasks:
     - name: Configurar Interfaces
       include_role:
         name: mrlesmithjr.config-interfaces
