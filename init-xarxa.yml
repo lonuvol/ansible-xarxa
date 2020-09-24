@@ -6,6 +6,9 @@
     - vars/default.yml
   
   tasks:
+    - name: Instalar paquets basics
+      apt: name={{ sys_packages }} state=latest
+    
     - name: Instalar paquets amb versio especifica
       apt: name='{{ item.name }}={{ item.ver }}'
       with_items: "{{ lock_packages }}"
