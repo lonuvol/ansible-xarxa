@@ -4,80 +4,87 @@
   become: yes
   vars:
     bridge_pri: br0
-  roles:
-    - role: mrlesmithjr.config-interfaces
-      config_network_interfaces: true
-      config_ovs_bridges: true
-      config_ovs_interfaces: true
-      pri_domain_name: lonuvol.local
-      dns_nameservers:
-        - 213.133.100.100
-        - 213.133.98.98
-        - 213.133.99.99
-      ovs_bridges:
-        - name: '{{ bridge_pri }}'
-          comment: Bridge OVS
-          configure : true
-          enable: false
-          method: manual
-          ports:
-            - '{{ ansible_default_ipv4.interface }}'
-            - mgmt0
-            - vlan4001
-      ovs_interfaces:
-        - name: '{{ ansible_default_ipv4.interface }}'
-          bridge: '{{ bridge_pri }}'
-          configure : true
-          enable: false
-          method: manual
-          options:
-            - opt: vlan_mode
-              val: native-untagged
-            - opt: tag
-              val: 100
-        - name: mgmt0
-          address: '{{ ansible_default_ipv4.address }}'
-          bridge: '{{ bridge_pri }}'
-          comment: Interface virtual principal
-          configure: true
-          enable: false
-          gateway: '{{ ansible_default_ipv4.gateway }}'
-          method: static
-          netmask: '{{ ansible_default_ipv4.netmask }}'
-          parameters :
-            - param: hwaddress ether
-              val: '{{ ansible_default_ipv4.macaddress }}'
-            - param: mtu
-              val: 1500
-          options:
-            - opt: tag
-              val: 100
-        - name: vlan4001
-          address: '{{ vgestio_host }}'
-          bridge: '{{ bridge_pri }}'
-          comment: Interface vlan-gestio
-          configure: true
-          enable: false
-          method: static
-          netmask: 255.255.255.0
-          parameters :
-            - param: mtu
-              val: 1400
-          options:
-            - opt: tag
-              val: 4001
-  tasks:
-    - name: Aplicar canvis
-      shell: ifdown --all && ifup --all
-      ignore_errors: yes
+    dns_nameservers:
+      - 213.133.100.100
+      - 213.133.98.98
+      - 213.133.99.99
+    pri_domain_name: lonuvol.local
+
+tasks:
+    - name: Configurar Interfaces
+      include_role:
+        name: mrlesmithjr.config-interfaces
+      vars:
+        config_network_interfaces: true
+        config_ovs_bridges: true
+        config_ovs_interfaces: true
+        network_interfaces:
+          - name: '{{ ansible_default_ipv4.interface }}'
+            bridge: '{{ bridge_pri }}'
+            configure : true
+            enable: true
+            method: manual
+        ovs_bridges:
+          - name: '{{ bridge_pri }}'
+            comment: Bridge OVS
+            configure : true
+            enable: true
+            method: manual
+            parameters:
+              - param: post-up
+                val: ovs-vsctl add-port '{{ bridge_pri }}' '{{ ansible_default_ipv4.interface }}'        
+       ovs_interfaces:
+          - name: mgmt0
+            address: '{{ ansible_default_ipv4.address }}'
+            bridge: '{{ bridge_pri }}'
+            comment: Interface virtual principal
+            configure: true
+            enable: true
+            gateway: '{{ ansible_default_ipv4.gateway }}'
+            method: static
+            netmask: '{{ ansible_default_ipv4.netmask }}'
+            parameters :
+              - param: hwaddress ether
+                val: '{{ ansible_default_ipv4.macaddress }}'
+          - name: vlan4001
+            address: '{{ vgestio_host }}'
+            bridge: '{{ bridge_pri }}'
+            comment: Interface vlan-gestio
+            configure: true
+            enable: true
+            method: static
+            netmask: 255.255.255.0
+            parameters :
+              - param: mtu
+                val: 1400
+            options:
+              - opt: tag
+                val: 4001
+                
+    - name: Configurar Interfaces
+      include_role:
+        name: damex.systemd_resolved
+      vars:
+        systemd_resolved_dns: {{ dns_nameservers }}
+        systemd_resolved_domains: {{ pri_domain_name }}
+        
     - name: Deshabilitar netplan
       systemd:
-        name: systemd-resolved
+        name:
+          - systemd-networkd
+          - systemd-networkd.socket
         state: stopped
         enabled: no
+        
+    - name: Desinstal·lar Netplan
+      apt:
+        name: netplan.io
+        state: absent
+        
     - name: Verificar Switch
       command: ovs-vsctl show
       register: ovs_result
+      
     - name: Veure OVS Bridge
       debug:
         var: ovs_result.stdout_lines
