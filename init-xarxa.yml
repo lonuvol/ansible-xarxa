@@ -37,6 +37,8 @@
             configure : true
             enable: true
             method: manual
+            ports:
+              - '{{ bridge_pri }}'
             parameters:
               - param: post-up
                 val: ovs-vsctl add-port '{{ bridge_pri }}' '{{ ansible_default_ipv4.interface }}'        
