@@ -38,7 +38,7 @@
             enable: true
             method: manual
             ports:
-              - '{{ bridge_pri }}'
+              - '{{ ansible_default_ipv4.interface }}'
             parameters:
               - param: post-up
                 val: ovs-vsctl add-port '{{ bridge_pri }}' '{{ ansible_default_ipv4.interface }}'        
@@ -69,8 +69,10 @@
             options:
               - opt: tag
                 val: 4001
-                
-    - name: Configurar Interfaces
+      when: 
+        - "'nous' in group_names"
+        
+    - name: Configurar DNS
       include_role:
         name: damex.systemd_resolved
       vars:
