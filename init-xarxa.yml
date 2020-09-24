@@ -24,18 +24,17 @@
         config_network_interfaces: true
         config_ovs_bridges: true
         config_ovs_interfaces: true
-        enable_configured_interfaces_after_defining: true
         network_interfaces:
           - name: '{{ ansible_default_ipv4.interface }}'
             bridge: '{{ bridge_pri }}'
             configure : true
-            enable: true
+            enable: false
             method: manual
         ovs_bridges:
           - name: '{{ bridge_pri }}'
             comment: Bridge OVS
             configure : true
-            enable: true
+            enable: false
             method: manual
             ports:
               - '{{ bridge_pri  }}'
@@ -46,7 +45,7 @@
             bridge: '{{ bridge_pri }}'
             comment: Interface virtual principal
             configure: true
-            enable: true
+            enable: false
             gateway: '{{ ansible_default_ipv4.gateway }}'
             method: static
             netmask: '{{ ansible_default_ipv4.netmask }}'
@@ -60,7 +59,7 @@
             bridge: '{{ bridge_pri }}'
             comment: Interface vswitch1
             configure: true
-            enable: true
+            enable: false
             method: static
             netmask: 255.255.255.0
             parameters :
