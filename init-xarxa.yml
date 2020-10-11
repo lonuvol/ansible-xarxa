@@ -64,7 +64,7 @@
             configure: true
             enable: false
             method: static
-            netmask: 255.255.255.0
+            netmask: 255.255.0.0
             parameters :
               - param: mtu
                 val: 1400
