@@ -13,7 +13,7 @@
       apt: name={{ sys_packages }} state=latest
     
     - name: Instalar paquets amb versio especifica
-      apt: name='{{ item.name }}={{ item.ver }}'
+      apt: name='{{ item.name }}'
       with_items: "{{ lock_packages }}"
     
     - name: Bloquejar paquets
