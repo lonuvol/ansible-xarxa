@@ -22,7 +22,7 @@
       
     - name: Configurar Interfaces
       include_role:
-        name: mrlesmithjr.config-interfaces
+        name: ansible-config-interfaces
       vars:
         config_network_interfaces: true
         config_ovs_bridges: true
